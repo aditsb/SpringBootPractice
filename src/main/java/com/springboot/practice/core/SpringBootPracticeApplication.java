@@ -2,12 +2,13 @@ package com.springboot.practice.core;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-public class SpringCoreExampleApplication {
+public class SpringBootPracticeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringCoreExampleApplication.class, args);
+		SpringApplication.run(SpringBootPracticeApplication.class, args);
 	}
 
 }
