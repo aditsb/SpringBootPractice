@@ -6,6 +6,7 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,12 +18,13 @@ public class StringBatchConfiguration {
     private JobBuilderFactory jobBuilderFactory;
 
     @Bean
+            (name = "stringBatchJob")
     public Job job() {
         return jobBuilderFactory.get("Job 1").incrementer(new RunIdIncrementer()).listener(listener()).start(step()).build();
 
     }
 
-    @Bean
+    @Bean(name = "stringBatchStep")
     public Step step() {
         return stepBuilderFactory.get("step 1").<String, String>chunk(1)
                 .reader(reader())
@@ -31,25 +33,25 @@ public class StringBatchConfiguration {
 
     }
 
-    @Bean
+    @Bean(name = "stringReader")
     public StringReader reader() {
         return new StringReader();
 
     }
 
-    @Bean
+    @Bean(name = "stringWriter")
     public StringWriter writer() {
         return new StringWriter();
 
     }
 
-    @Bean
+    @Bean(name = "stringProcessor")
     public StringProcessor processor() {
         return new StringProcessor();
 
     }
 
-    @Bean
+    @Bean(name = "stringListener")
     public StringJobListener listener() {
         return new StringJobListener();
 

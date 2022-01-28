@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.springboot.practice.core.batch.csvtodb.config.CSVToDBBatchConfiguration;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +18,8 @@ import org.springframework.batch.core.repository.JobExecutionAlreadyRunningExcep
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.springboot.practice.core.repo.StudentRepository;
@@ -37,9 +38,14 @@ public class SpringBootPracticeApplicationTests {
 	private StudentRepository repository;
 	@Autowired
 	private JobLauncher jobLauncher;
-	@Autowired
-	private Job job;
 
+	@Autowired
+	@Qualifier("stringBatchJob")
+	private Job StringBatchJob;
+
+	@Autowired
+	@Qualifier("productBatchJob")
+	private Job productBatchJob;
 	@Test
 	public void testDependncyInjection() {
 		System.out.println("Hii");
@@ -49,9 +55,17 @@ public class SpringBootPracticeApplicationTests {
 
 	}
 	@Test
+	public void testProductBatch() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+		JobParameters jobParameters = new JobParametersBuilder().toJobParameters();
+			jobLauncher.run(productBatchJob, jobParameters);
+
+	}
+
+	@Test
 	public void testStringBatch() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 		JobParameters jobParameters = new JobParametersBuilder().toJobParameters();
-		jobLauncher.run(job,jobParameters);
+			jobLauncher.run(StringBatchJob, jobParameters);
+
 
 	}
 
