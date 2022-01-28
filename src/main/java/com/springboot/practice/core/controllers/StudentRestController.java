@@ -5,6 +5,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +25,16 @@ public class StudentRestController {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentRestController.class);
 
+	@RequestMapping(value = "/demo/")
+	public String demo() {
+		System.out.println("Demo App");
+		return "Demo App";
+	}
+
+
 	@RequestMapping(value = "/students/", method = RequestMethod.GET)
+	@Cacheable("student-cache")
+	@Transactional(readOnly = true)
 	public List<Student> getStudents() {
 		return studentRepository.findAll();
 	}
@@ -45,6 +57,7 @@ public class StudentRestController {
 	}
 
 	@RequestMapping(value = "/students/{id}", method = RequestMethod.DELETE)
+	@CacheEvict("student-cache")
 	public void deleteStudent(@PathVariable("id") long id) {
 		studentRepository.deleteById(id);
 	}

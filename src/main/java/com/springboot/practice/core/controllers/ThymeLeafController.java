@@ -3,6 +3,7 @@ package com.springboot.practice.core.controllers;
 import com.springboot.practice.core.vo.Student;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -10,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-public class ThymeleafHelloWorldController {
+public class ThymeLeafController {
 
     @RequestMapping("/hello")
     public String hello() {
@@ -51,6 +52,28 @@ public class ThymeleafHelloWorldController {
         student3.setName("DDD");
         List<Student>students=Arrays.asList(student,student2,student3);
         modelAndView.addObject("students", students);
+        return modelAndView;
+
+    }
+
+    @RequestMapping("/displayStudentForm")
+    public ModelAndView processStudentFormData() {
+        ModelAndView modelAndView = new ModelAndView("studentForm");
+        Student student=new Student();
+        student.setId(10);
+        student.setName("ABC");
+        modelAndView.addObject("student", student);
+        return modelAndView;
+
+    }
+
+    @RequestMapping("/saveStudentFormData")
+    public ModelAndView saveStudentFormData(@ModelAttribute Student student) {
+        ModelAndView modelAndView = new ModelAndView("result");
+
+        System.out.println("student name:"+student.getName());
+        System.out.println("student id:"+student.getId());
+
         return modelAndView;
 
     }

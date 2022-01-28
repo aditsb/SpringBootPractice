@@ -8,6 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
+import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
+import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
@@ -27,6 +35,10 @@ public class SpringBootPracticeApplicationTests {
 	private PaymentServiceImpl paymentServiceImpl;
 	@Autowired
 	private StudentRepository repository;
+	@Autowired
+	private JobLauncher jobLauncher;
+	@Autowired
+	private Job job;
 
 	@Test
 	public void testDependncyInjection() {
@@ -36,8 +48,14 @@ public class SpringBootPracticeApplicationTests {
 		System.out.println("Hii");
 
 	}
+	@Test
+	public void testStringBatch() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+		JobParameters jobParameters = new JobParametersBuilder().toJobParameters();
+		jobLauncher.run(job,jobParameters);
 
-	/*@Test
+	}
+
+	@Test
 	public void testStudentRepo() {
 		Student student = new Student();
 		student.setName("ADI");
@@ -49,12 +67,13 @@ public class SpringBootPracticeApplicationTests {
 		
 
 		assertNotNull(savedStudents);
-		assertEquals(60, savedStudents.getTestscore());
+		System.out.println(savedStudents.get(0));
+		assertEquals(100, savedStudents.get(0).getTestscore());
 
 		repository.delete(student);
 		assertTrue(repository.findById(1l).isPresent()==false);
 
 
-	}*/
+	}
 
 }
