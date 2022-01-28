@@ -1,4 +1,4 @@
-package com.springboot.practice.core;
+package com.springboot.practice.core.integration;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
