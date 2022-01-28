@@ -68,6 +68,16 @@ public class StudentRestControllerTest {
     }
 
     @Test
+    public void testDeleteStudent() throws Exception {
+        Student student = getStudent();
+        Optional optional=Optional.of(student);
+        Mockito.doNothing().when(mockStudentRepository).deleteById(Mockito.any(Long.class));
+        mockMvc.perform(MockMvcRequestBuilders.delete(STUDENTS_API_BASE_URL+100).contextPath(CONTEXT_PATH))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+    }
+
+    @Test
     public void testUpdateStudent() throws Exception {
         Student student = getStudent();
         Mockito.when(mockStudentRepository.save(Mockito.any(Student.class))).thenReturn(student);
