@@ -71,7 +71,7 @@ public class StudentRestControllerTest {
     public void testUpdateStudent() throws Exception {
         Student student = getStudent();
         Mockito.when(mockStudentRepository.save(Mockito.any(Student.class))).thenReturn(student);
-        mockMvc.perform(MockMvcRequestBuilders.post(STUDENTS_API_BASE_URL).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.put(STUDENTS_API_BASE_URL).contentType(MediaType.APPLICATION_JSON)
                         .content(objectWriter.writeValueAsString(student)).contextPath(CONTEXT_PATH))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().json(objectWriter.writeValueAsString(student)));
 
