@@ -7,12 +7,14 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jms.annotation.EnableJms;
 
 import javax.sql.DataSource;
 
 @SpringBootApplication
 @EnableCaching
 @EnableBatchProcessing
+@EnableJms
 public class SpringBootPracticeApplication {
 
 	public static void main(String[] args) {
