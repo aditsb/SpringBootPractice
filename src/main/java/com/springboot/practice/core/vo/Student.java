@@ -4,6 +4,9 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import java.io.Serializable;
 
 @Entity
@@ -12,7 +15,9 @@ public class Student implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
+	@NotBlank(message = "Name is mandatory")
 	private String name;
+	@Positive
 	private int testscore;
 	public long getId() {
 		return id;

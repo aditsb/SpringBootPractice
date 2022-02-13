@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springboot.practice.core.repo.StudentRepository;
 import com.springboot.practice.core.vo.Student;
 
+import javax.validation.Valid;
+
 @RestController
 public class StudentRestController {
 
@@ -46,7 +48,7 @@ public class StudentRestController {
 	}
 
 	@RequestMapping(value = "/students/", method = RequestMethod.POST)
-	public Student createStudent(@RequestBody Student student) {
+	public Student createStudent( @RequestBody @Valid Student student) {
 		LOGGER.info("Student:{}",student);
 		return studentRepository.save(student);
 	}

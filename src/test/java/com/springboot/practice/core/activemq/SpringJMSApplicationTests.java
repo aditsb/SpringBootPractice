@@ -12,8 +12,8 @@ public class SpringJMSApplicationTests {
     @Autowired
     private MessageSender messageSender;
 
-    @Test
+    /*@Test
     public void testSendMessage(){
         messageSender.send("Hello Spring JMS!!!");
-    }
+    }*/
 }

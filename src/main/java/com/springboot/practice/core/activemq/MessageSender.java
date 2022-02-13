@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MessageSender {
-    @Autowired
-    private JmsTemplate jmsTemplate;
-    @Value("${spring.jms.queue.name}")
+   /* @Autowired
+    private JmsTemplate jmsTemplate;*/
+    //@Value("${spring.jms.queue.name}")
     private String queue;
 
-    public void send(String message) {
+    /*public void send(String message) {
 
         jmsTemplate.convertAndSend(queue, message);
-    }
+    }*/
 }

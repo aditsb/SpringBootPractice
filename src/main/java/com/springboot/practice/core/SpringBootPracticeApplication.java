@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 @SpringBootApplication
 @EnableCaching
 @EnableBatchProcessing
-@EnableJms
+//@EnableJms
 public class SpringBootPracticeApplication {
 
 	public static void main(String[] args) {
