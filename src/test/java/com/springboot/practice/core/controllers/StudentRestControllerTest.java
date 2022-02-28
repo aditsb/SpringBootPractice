@@ -1,9 +1,10 @@
-package com.springboot.practice.core.unit.controllers;
+package com.springboot.practice.core.controllers;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.springboot.practice.core.repo.StudentRepository;
+import com.springboot.practice.core.service.VaccineService;
 import com.springboot.practice.core.vo.Student;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +34,9 @@ public class StudentRestControllerTest {
 
     @MockBean
     private StudentRepository mockStudentRepository;
+
+    @MockBean
+    private VaccineService mockVaccineService;
 
     private
     ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();

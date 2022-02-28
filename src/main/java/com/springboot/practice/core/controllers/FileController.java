@@ -19,6 +19,7 @@ public class FileController {
     private String UPLOAD_DIR;
     @PostMapping("upload")
     public boolean upload(@RequestParam("file")MultipartFile file) throws IOException {
+        Files.createDirectories(Paths.get(UPLOAD_DIR));
         file.transferTo(Paths.get(UPLOAD_DIR+file.getOriginalFilename()));
         return true;
 

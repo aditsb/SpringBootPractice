@@ -1,5 +1,6 @@
 package com.springboot.practice.core.controllers;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,7 +28,7 @@ public class FileControllerTest {
         multiValueMap.add("file",new ClassPathResource("Spring.jpeg"));
         HttpEntity<MultiValueMap<String,Object>>httpEntity=new HttpEntity<>(multiValueMap,headers);
        ResponseEntity<Boolean>response= testTemplate.postForEntity("http://localhost:8080/studentsapi/upload",httpEntity,Boolean.class);
-        System.out.println(response.getBody());
+        Assert.assertTrue(response.getBody());
     }
 
     @Test
