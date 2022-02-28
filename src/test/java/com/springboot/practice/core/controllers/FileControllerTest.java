@@ -3,7 +3,10 @@ package com.springboot.practice.core.controllers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,10 +18,14 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FileControllerTest {
 
-    private RestTemplate testTemplate=new RestTemplate();
+    @LocalServerPort
+    int randomServerPort;
+
+    @Autowired
+    private TestRestTemplate testTemplate;
 
     @Test
     public void testUploadFile() {
@@ -27,7 +34,7 @@ public class FileControllerTest {
         LinkedMultiValueMap<String, Object> multiValueMap = new LinkedMultiValueMap<>();
         multiValueMap.add("file",new ClassPathResource("Spring.jpeg"));
         HttpEntity<MultiValueMap<String,Object>>httpEntity=new HttpEntity<>(multiValueMap,headers);
-       ResponseEntity<Boolean>response= testTemplate.postForEntity("http://localhost:8080/studentsapi/upload",httpEntity,Boolean.class);
+       ResponseEntity<Boolean>response= testTemplate.postForEntity("http://localhost:"+randomServerPort+"/studentsapi/upload",httpEntity,Boolean.class);
         Assert.assertTrue(response.getBody());
     }
 
