@@ -11,3 +11,7 @@ This is my spring boot practice project. I have created this project whie learni
 8) Configuring and enabling database cache
 9) Configuring and enabling spring batch
 10) Unit testing using MockMVC
+11) Messaging using Spring JMS
+12) Validations using javax.validation
+13) Rest File Upload and download
+
